@@ -60,13 +60,13 @@ class Walker {
     update() {
       this.angle =
         noise(this.pos.x, this.pos.y, this.noiseZ) * TWO_PI;// * noiseStrength; //0-2PI\
-      console.log(this.angle);  
+    //   console.log(this.angle);  
     //   this.Xnoise = noise(this.noiseX);
     //   this.Ynoise = noise(this.noiseY);
       this.Xnoise = cos(this.angle)*this.res;
     //   console.log(cos(this.angle));
     //   console.log(cos(this.angle));
-      console.log(this.res);
+    //   console.log(this.res);
     //   console.log(cos(this.angle)*this.res)
     //   console.log(this.Xnoise);
       this.Ynoise = sin(this.angle)*this.res;

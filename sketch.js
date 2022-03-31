@@ -9,23 +9,24 @@ let maxCitric,
   minQuality,
   minAlcohol,
   maxAlcohol;
-let index = 190;
+let index = 0;
 let res;
 let nosieVal;
-let bg = "#000000";
+let r = 48; let g = 40; let b = 45; let bgAlpha = 10;
 let xStep, yStep;
 let quality, density, alcohol, ph;
 let num;
 let iteration = 0;
-let maxIteration = 50;
+let maxIteration = 40;
 let maxNum = 70;
-let minNum = 20;
+let minNum = 10;
 let minRes = 5;
 let maxRes = 50;
 let resConst = 5;
 let hu;
 let minHu = 0;
 let maxHu = 250;
+let can;
 
 let walkers = [];
 
@@ -35,8 +36,9 @@ function preload() {
 
 function setup() {
   frameRate(10);
-  createCanvas(1000, 1000);
-  background(bg);
+  can = createCanvas(1000, 1000);
+  colorMode(RGB);
+  background(r,g,b);
   maxCitric = max(table.getColumn("citric acid"));
   minCitric = min(table.getColumn("citric acid"));
   maxDensity = max(table.getColumn("density"));
@@ -59,13 +61,14 @@ function setup() {
   alcohol = table.getNum(index, "alcohol");
   for (let i = 0; i < maxNum; i++) {
     walkers[i] = new Walker(random(width), random(height),hu, alcohol, maxAlcohol, minAlcohol, res);
-	console.log(quality);
-	console.log(res);
+	// console.log(quality);
+	// console.log(res);
   }
 }
 
 function draw() {
-//   background(0,10);
+	colorMode(RGB);
+	background(r,g,b,bgAlpha);
   //fill(255);
   quality = table.getNum(index, "quality");
   density = table.getNum(index, "density");
@@ -81,6 +84,7 @@ function draw() {
   xStep = width / res;
   yStep = height / res;
   num = map(density, minDensity, maxDensity, minNum, maxNum);
+  console.log(num);
 
   
   for (let i = 0; i < num; i++) {
@@ -101,6 +105,9 @@ function draw() {
 }
 
 function keyPressed() {
+  if(keyCode === ENTER) {
+	saveCanvas(can, 'painting', 'jpg');
+  }
   if (keyCode === LEFT_ARROW) {
     index++;
     if (index > 1143) {
@@ -130,8 +137,8 @@ function keyPressed() {
 		res
 		);
 	  }
-	  
-  background(bg);
+	  colorMode(RGB);
+  background(r,g,b);
   iteration = 0;
   loop();
 }
